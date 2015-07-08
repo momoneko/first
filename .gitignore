@@ -22,3 +22,6 @@ secrets.py
 
 # Editor/IDE specific files
 *.sublime-*
+
+# database
+mydatabase
