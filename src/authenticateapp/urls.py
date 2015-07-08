@@ -1,9 +1,9 @@
+from django.shortcuts import render
 from django.conf.urls import patterns, include, url
 
 
 urlpatterns = patterns(
     '',
     # url(r'^$', 'project_name.views.home', name='home'),
-    url(r'^$', 'main.views.main_page', name='main'),
-    url(r'^login/', include('authenticateapp.urls')),
+    url(r'^', 'authenticateapp.views.login', name='login'),
 )
