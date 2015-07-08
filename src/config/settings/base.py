@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,7 +82,7 @@ TEMPLATE_DIRS = (
 
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'static'),
-    )
+)
 
 
 # Logging configuration
