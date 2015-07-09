@@ -24,4 +24,4 @@ secrets.py
 *.sublime-*
 
 # database
-mydatabase
+mydatabase.sq3
