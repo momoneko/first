@@ -15,7 +15,7 @@ def log_in(request):
                 login(request, user)
                 next_page = request.GET.get('next')
                 if not next_page:
-                    next_page = 'private'
+                    next_page = 'private2'
                 return redirect(next_page)
             else:
                 return HttpResponse("Account disabled")
