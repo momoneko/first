@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 
@@ -13,7 +13,7 @@ def log_in(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, "login/nustiu.html")
+                return redirect('private')
             else:
                 return HttpResponse("Account disabled")
         else:
