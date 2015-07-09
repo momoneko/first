@@ -13,7 +13,10 @@ def log_in(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('private')
+                next_page = request.GET.get('next')
+                if not next_page:
+                    next_page = 'private'
+                return redirect(next_page)
             else:
                 return HttpResponse("Account disabled")
         else:
