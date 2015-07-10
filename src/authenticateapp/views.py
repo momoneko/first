@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
 
 
 def log_in(request):
@@ -24,3 +27,16 @@ def log_in(request):
                 request, "login/login.html",
                 {'message': 'Wrong Username/Password'}
                 )
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/private2/")
+    else:
+        form = UserCreationForm()
+    return render(request, "login/register.html", {
+        'form': form,
+    })
