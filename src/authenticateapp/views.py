@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from .userform import UserForm
+from django.contrib.auth.models import User
 
 
 def log_in(request):
@@ -20,7 +21,10 @@ def log_in(request):
                     next_page = 'private2'
                 return redirect(next_page)
             else:
-                return HttpResponse("Account disabled")
+                return render(
+                    request, "login/login.html",
+                    {'message': 'Account disabled'}
+                    )
         else:
             return render(
                 request, "login/login.html",
@@ -30,16 +34,22 @@ def log_in(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
-            username = request.POST['username']
-            password = request.POST['password1']
-            user = authenticate(username=username, password=password)
+            new_user = User.objects.create_user(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+                last_name=form.cleaned_data['last_name'],
+                first_name=form.cleaned_data['first_name'],
+                email=form.cleaned_data['email'],
+                )
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'])
             login(request, user)
             return redirect('private2')
     else:
-        form = UserCreationForm()
+        form = UserForm()
     return render(request, "login/register.html", {
         'form': form,
     })
